@@ -8,7 +8,7 @@ const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");/* Un
 
 const controller = {
 	index: (req, res) => {
-		// Do the magic
+		// Do the magic: en vez de mandarlo por send los datos se envian por una vista 
 		let ofertas = products.filter(product => product.category === "in-sale");/* nos pide que mandemos las variable en dos partes  */
 		let visitados = products.filter(product => product.category === "visited");
 		res.render('index', {
