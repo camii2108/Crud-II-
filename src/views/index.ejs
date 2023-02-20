@@ -18,17 +18,18 @@
 				<h2 class="products-title">Basado en tu última visita</h2>
 			</div>
 			<!-- Show the "visited" products -->
-			<% productsVisited.forEach(product => { %>
+			<% visitados.forEach((product) => { %> <!-- cada interacion va  aser un producto -->
 			    <div class="col-12 col-sm-6 col-lg-3">
 				    <section class="product-box">
-					    <a href="/products/detail/<%- product.id %>">
+					    <a href="/products/detail/<%= product.id %>">
 						    <figure class="product-box_image">
-						    	<img src="/images/products/<%- product.image %>" alt="imagen de producto">
+						    	<img src="/images/products/<%= product.image %>" alt="imagen de producto">
 						    </figure>
 						    <article class="product-box_data">
-							    <h2><%- toThousand(product.price) %></h2>
-							    <span><%- product.discount %>% OFF</span>
-							    <p><%- product.name %></p>
+							    <h2><%= toThousand(product.price - (product.price * product.discount / 100)) %></h2><!-- include o algo de codigo -->
+<!-- include o algo de codigo -->
+							    <span><%= product.discount %> % OFF</span><!-- varibles -->
+							    <p><%= product.name %></p>
 							    <i class="fas fa-truck"></i>
 						    </article>
 					    </a>
@@ -45,17 +46,17 @@
 				<h2 class="products-title">Ofertas</h2>
 			</div>
 			<!-- Show the "in-sale" products -->
-			<% productsInSale.forEach(product => { %>
+			<% ofertas.forEach((product) => { %> <!-- cada interacion va  aser un producto -->
 			    <div class="col-12 col-sm-6 col-lg-3">
 				    <section class="product-box">
-					    <a href="/products/detail/<%- product.id %>">
+					    <a href="/products/detail/<%= product.id %>">
 						    <figure class="product-box_image">
-						    	<img src="/images/products/<%- product.image %>" alt="imagen de producto">
+						    	<img src="/images/products/<%= product.image %>" alt="imagen de producto">
 						    </figure>
 						    <article class="product-box_data">
-							    <h2><%- toThousand(product.price - (product.price * product.discount / 100)) %></h2>
-							    <span><%- product.discount %>% OFF</span>
-							    <p><%- product.name %></p>
+							    <h2><%= toThousand(product.price - (product.price * product.discount / 100)) %></h2><!-- include o algo de codigo -->
+							    <span><%= product.discount %> % OFF</span><!-- varibles -->
+							    <p><%= product.name %></p>
 							    <i class="fas fa-truck"></i>
 						    </article>
 					    </a>
