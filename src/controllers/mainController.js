@@ -22,7 +22,7 @@ const controller = {
 		let { keywords } = req.query
 		let results = products.filter(product => product.name.toLowerCase() === keywords.toLowerCase())
 
-		res.render(`results`, {
+		res.render('results', {
 			keywords,
 			results,
 			toThousand,
