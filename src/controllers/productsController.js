@@ -22,9 +22,8 @@ const controller = {
 	// Detail - Detail from one product
 	detail: (req, res) => {
 		// Do the magic
-		let productId = req.params.id;
-		let product = products.find(product => product.id == productId);
-
+		const {id} = req.params 
+		const product = products.find(product => product.id === +id)
 		res.render("detail", {
 			product,
 			toThousand,
