@@ -3,7 +3,7 @@ const path = require('path');
 
 const productsFilePath = path.join(__dirname, '../data/productsDataBase.json');
 const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
-const writeJson = (products) => {
+const writeJson = (products) => { /* que me sobrescriba el json, es decir que me los guarda */
 	fs.writeFileSync(productsFilePath, JSON.stringify(products), 'utf-8')
 }
 
@@ -39,21 +39,20 @@ const controller = {
 	// Create -  Method to store
 	store: (req, res) => {
 		// Do the magic
-		let lastId = products[products.length -1].id;
-		
-		let newProduct = {
-			id: lastId + 1,
-			name: req.body.name,
-			price: req.body.price,
-			discount: req.body.discount,
-			category: req.body.category,
-			description: req.body.description,
-			image: req.file ? req.file.filename : 'default-image.png'
+		const {name, price, discount, category,description} = req.body
+		const id = Math.max(...products.map(el => el.id))
+		const newProduct = {
+			id: id + 1,
+			name/* : req.body.name */,
+			price/* : req.body.price */,
+			discount/* : req.body.discount */,
+			description/* : req.body.description */,
+			category/* : req.body.category */,
+			image : /* req.file ? req.file.filename : */ 'default-image.png'
 		}
-
 		products.push(newProduct)
 		writeJson(products)
-		res.redirect('/products')
+		res.redirect('/products') 
 	},
 
 	// Update - Form to edit

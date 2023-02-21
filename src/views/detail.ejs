@@ -29,13 +29,12 @@
 							<p class="product-detail-price small">
 								<span><%= product.price %></span>
 								/
-								<b><%- toThousand(product.price - (product.price * product.discount / 100)) %></b>
+								<b><%- toThousand(product.price - (product.price * product.discount / 100)) %>% OFF</b>
 							</p>
-							<p class="product-detail-price">
+							<!-- <p class="product-detail-price">
 								<%- toThousand(product.price - (product.price * product.discount / 100)) %>
-							</p>
-							<p class="product-detail-price">
-								<%= product.price %>
+							</p> -->
+							<p class="product-detail-price">$<%= product.price %>
 							</p>
 
 						<ul class="actions-list">
