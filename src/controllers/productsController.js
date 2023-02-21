@@ -39,58 +39,77 @@ const controller = {
 	// Create -  Method to store
 	store: (req, res) => {
 		// Do the magic
-		const {name, price, discount, category,description} = req.body
-		const id = Math.max(...products.map(el => el.id))
+		const id =  Math.max(...products.map(el => el.id))
 		const newProduct = {
 			id: id + 1,
-			name/* : req.body.name */,
-			price/* : req.body.price */,
-			discount/* : req.body.discount */,
-			description/* : req.body.description */,
-			category/* : req.body.category */,
-			image : /* req.file ? req.file.filename : */ 'default-image.png'
+			...req.body,
+			image : 'default-image.png'
 		}
 		products.push(newProduct)
 		writeJson(products)
-		res.redirect('/products') 
+		res.redirect('/products')
+		
+		/*const {name, price, discount, category,description} = req.body
+		const {} = req.body
+		res.send(req.body)  */
 	},
 
 	// Update - Form to edit
 	edit: (req, res) => {
 		// Do the magic
-		let productId = Number(req.params.id);
-		let productToEdit = products.find(product  => product.id === productId);
-
+		const {id} = req.params 
+		const productToEdit = products.find(product => product.id === +id) 
 		res.render('product-edit-form', {
-			productToEdit,
+			productToEdit
 		})
+
 	},
+
+	
 	// Update - Method to update
 	update: (req, res) => {
 		// Do the magic
-		let productId = Number(req.params.id);
+		const {id} = req.params
+		const product = products.find(product => product.id === +id)
 
+		if(!product){
+			return res.send('noexiste ese producto')
+		}
+		const {name, price, discount, category, description} = req.body
 		products.forEach(product => {
-			if(product.id === productId){
-				product.name = req.body.name,
-				product.price = req.body.price,
-				product.discount = req.body.discount,
-				product.category = req.body.category,
-				product.description = req.body.description,
-				product.image =  req.file ? req.file.filename : 'default-image.png'
+			if(product.id == id){
+				product.name = name,
+				product.price = price,
+				product.discount = discount,
+				product.description = description,
+				product.category = category
 			}
-		})
+		});
 		writeJson(products);
 		res.redirect('/products')
 	},
 
 	// Delete - Delete one product from DB
 	destroy : (req, res) => {
-		// Do the magic
-		let productId = Number(req.params.id);
-		let newProductsArray = products.filter(product => product.id !== productId);
-		writeJson(newProductsArray);
-		res.redirect('/products/');
+		// Do the magic:obtener el id del req params
+		let productId = Number(req.params.id); /*  */
+
+		//Busco el producto eliminar y lo borro del array
+		products.forEach( product => {
+			if(product.id === productId){
+				let productToDestroy = products.indexOf(product);
+				products.splice(productToDestroy, 1) 
+			}
+		})
+
+		/* let newProductArray = products.filter(product => product.id !== productId) *//*  voy a tenener todos los productos menos el que quiero */
+
+		//Sobre escribo el json con el array de productos modidifcados
+		writeJson(products)
+		
+		// retorno un mensaje de exito 
+		res.send("El producto fue destruido")
+
 	}
 };
 
